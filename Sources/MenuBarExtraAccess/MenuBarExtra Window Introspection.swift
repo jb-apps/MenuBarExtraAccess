@@ -30,6 +30,21 @@ extension View {
                 block(window)
             }
     }
+    
+    public func introspectMenuBarStatusItem(
+        index: Int = 0,
+        _ block: @escaping (_ statusItem: NSStatusItem) -> Void
+    ) -> some View {
+        self
+            .onAppear {
+                guard let statusItem = MenuBarExtraUtils.statusItem(for: .index(index)) else {
+                    print("Cannot call introspection block for status item because its NSStatusItem could not be found.")
+                    return
+                }
+                
+                block(statusItem)
+            }
+    }
 }
 
 #endif
